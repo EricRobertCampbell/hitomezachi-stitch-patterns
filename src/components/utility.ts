@@ -24,7 +24,7 @@ export function draw(
 }
 
 function drawCircle(ctx: CanvasRenderingContext2D, circle: Circle) {
-	const { x, y, radius = 5 } = circle;
+	const { x, y, radius = 2 } = circle;
 	console.log(`About to draw circle (${x}, ${y})`);
 	ctx.beginPath();
 	ctx.lineWidth = 1;
@@ -40,7 +40,7 @@ function generateDots(
 	numColumnSeps: number,
 	numRowSeps: number
 ): Matrix<Circle> {
-	const radius = 5;
+	const radius = 2;
 	const columnWidth = generateDistance(width, numColumnSeps);
 	const rowWidth = generateDistance(height, numRowSeps);
 
@@ -123,7 +123,7 @@ function drawColumnStitches(
 	});
 }
 
-function partitionIntoPairs<T>(row: Array<T>): Pair<T> {
+function partitionIntoPairs<T>(row: Array<T>): Array<Pair<T>> {
 	const pairs = [];
 	// drop the last value if there are an odd number of elements in the row
 	const effectiveRow =
@@ -148,6 +148,8 @@ function drawStitch(
 	const [first, second] = pair;
 	ctx.beginPath();
 	ctx.moveTo(first.x, first.y);
+	ctx.lineWidth = 5;
+	ctx.lineCap = "round";
 	ctx.lineTo(second.x, second.y);
 	ctx.stroke();
 	ctx.closePath();
